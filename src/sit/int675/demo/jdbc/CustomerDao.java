@@ -49,7 +49,7 @@ public class CustomerDao {
         return customers;
     }
     
-    protected static boolean update(Customer c){
+    protected static boolean update(Customer c) throws SQLException{
          Connection conn = ConnectionBuilder.getConnection();
         PreparedStatement pstm;
          try {
@@ -61,6 +61,8 @@ public class CustomerDao {
             return true;
          }catch (SQLException e){
              e.printStackTrace();
+         }finally{
+             conn.close();
          }
         
         return false;

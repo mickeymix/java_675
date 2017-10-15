@@ -5,7 +5,11 @@
  */
 package sit.int675.demo.jdbc;
 
+import java.awt.HeadlessException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +20,7 @@ public class ViewCustomerForm extends javax.swing.JFrame {
 
     private List<Customer> customers = null;
     private int currentCustomer = 0;
+
     /**
      * Creates new form ViewCustomerForm
      */
@@ -115,6 +120,11 @@ public class ViewCustomerForm extends javax.swing.JFrame {
 
         jbSave.setText("save");
         jbSave.setEnabled(false);
+        jbSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -236,33 +246,55 @@ public class ViewCustomerForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jtNameActionPerformed
 
     private void jbNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNextActionPerformed
-        if (currentCustomer >=customers.size()-1) {
-            
+        if (currentCustomer >= customers.size() - 1) {
+
             JOptionPane.showMessageDialog(this, "This is Last Record", "Sorry Sorry", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             currentCustomer++;
             showCustomer();
         }
     }//GEN-LAST:event_jbNextActionPerformed
 
     private void jbPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPreviousActionPerformed
-        if (currentCustomer <=0) {
-            
+        if (currentCustomer <= 0) {
+
             JOptionPane.showMessageDialog(this, "This is Fisrt Record", "Sorry Sorry", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             currentCustomer--;
             showCustomer();
         }    }//GEN-LAST:event_jbPreviousActionPerformed
 
     private void jtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNameKeyTyped
-           jbSave.setEnabled(true);
+        jbSave.setEnabled(true);
     }//GEN-LAST:event_jtNameKeyTyped
 
     private void jtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNameFocusLost
-           if (jtName.getText().equalsIgnoreCase(customers.get(currentCustomer).getName())) {
+        if (jtName.getText().equalsIgnoreCase(customers.get(currentCustomer).getName())) {
             jbSave.setEnabled(false);
         }
     }//GEN-LAST:event_jtNameFocusLost
+
+    private void jbSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSaveActionPerformed
+        Customer c = getData();
+        try {
+            if (c.update()) {
+                jbSave.setEnabled(true);
+            } else {
+                initErrorDislog();
+
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            initErrorDislog();
+
+        }
+
+    }//GEN-LAST:event_jbSaveActionPerformed
+
+    private void initErrorDislog() throws HeadlessException {
+        JOptionPane.showMessageDialog(this, "Cannot Save Customer", "Sorry", JOptionPane.ERROR_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -325,13 +357,23 @@ public class ViewCustomerForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void showCustomer() {
-            Customer c = customers.get(currentCustomer);
-            jtCustomerID.setText(String.valueOf(c.getCustomerId()));
-            jtName.setText(c.getName());
-            jtAddress.setText(c.getAdddressLine1().concat("\n").concat(c.getAdddressLine2()));
-            jtCity.setText(c.getCity());
-            jtState.setText(c.getState());
-            jtZip.setText(c.getZip());
-            jtEmail.setText(c.getEmail());
+        Customer c = customers.get(currentCustomer);
+        jtCustomerID.setText(String.valueOf(c.getCustomerId()));
+        jtName.setText(c.getName());
+        jtAddress.setText(c.getAdddressLine1().concat("\n").concat(c.getAdddressLine2()));
+        jtCity.setText(c.getCity());
+        jtState.setText(c.getState());
+        jtZip.setText(c.getZip());
+        jtEmail.setText(c.getEmail());
+    }
+
+    private Customer getData() {
+        Customer mCustomer = customers.get(currentCustomer);
+        synchronized (mCustomer) {
+            mCustomer.setName(jtName.getText());
+            mCustomer.setEmail(jtEmail.getText());
+        }
+
+        return mCustomer;
     }
 }

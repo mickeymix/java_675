@@ -140,7 +140,7 @@ public class Customer extends CustomerDao {
         this.creditLimit = creditLimit;
     }
     
-    public boolean update(){
+    public boolean update() throws SQLException{
         return update(this);
     }
     
