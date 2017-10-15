@@ -1,0 +1,9 @@
+Using the IDE Help System
+Press F1 in any part of the IDE to open a help topic that is specific to the task you are doing or where you are in the IDE.
+Searching the Online Help
+To perform a full-text search of all IDE F1 help topics, click the Search tab and type a keyword in the Find text box.
+Online Tutorials
+For tutorials on using NetBeans IDE, visit the following link:
+Developing Applications with NetBeans IDE User's Guide
+For additional help documentation about using the IDE, click any of the following chapter titles to open the chapter of the Developing Applications with NetBeans IDE User's Guide in your web browser.
+The IDE enables you to configure options for its many areas of functionality as well as customize its workspace. The primary tools you can use to configure and update the IDE include the following:

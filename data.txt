@@ -1,0 +1,7 @@
+100001, Somchai Sangdee, 5000.25 
+100012, Somkiat Sangdee, 6000 
+100341, Somchart Sangdee, 5000 
+100250, Somchit Sangdee, 5800.5 
+200010, Somsri Sangdee, 95000.10 
+200013, Somsak Sangdee, 11000.25
+200041, Somchoke Sangdee, 12030.50
