@@ -54,6 +54,7 @@ public class ViewCustomerForm extends javax.swing.JFrame {
         jbPrevious = new javax.swing.JButton();
         jbLast = new javax.swing.JButton();
         jbNext = new javax.swing.JButton();
+        jbSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,9 +78,19 @@ public class ViewCustomerForm extends javax.swing.JFrame {
 
         jtCustomerID.setEditable(false);
 
+        jtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtNameFocusLost(evt);
+            }
+        });
         jtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtNameActionPerformed(evt);
+            }
+        });
+        jtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNameKeyTyped(evt);
             }
         });
 
@@ -102,6 +113,9 @@ public class ViewCustomerForm extends javax.swing.JFrame {
             }
         });
 
+        jbSave.setText("save");
+        jbSave.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -115,7 +129,9 @@ public class ViewCustomerForm extends javax.swing.JFrame {
                 .addComponent(jbNext)
                 .addGap(18, 18, 18)
                 .addComponent(jbLast)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbSave)
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +141,8 @@ public class ViewCustomerForm extends javax.swing.JFrame {
                     .addComponent(jbFirst)
                     .addComponent(jbPrevious)
                     .addComponent(jbNext)
-                    .addComponent(jbLast))
+                    .addComponent(jbLast)
+                    .addComponent(jbSave))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -161,22 +178,21 @@ public class ViewCustomerForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(61, 61, 61)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtName, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 44, Short.MAX_VALUE)))
+                                    .addComponent(jtName, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 44, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,6 +254,16 @@ public class ViewCustomerForm extends javax.swing.JFrame {
             showCustomer();
         }    }//GEN-LAST:event_jbPreviousActionPerformed
 
+    private void jtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNameKeyTyped
+           jbSave.setEnabled(true);
+    }//GEN-LAST:event_jtNameKeyTyped
+
+    private void jtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNameFocusLost
+           if (jtName.getText().equalsIgnoreCase(customers.get(currentCustomer).getName())) {
+            jbSave.setEnabled(false);
+        }
+    }//GEN-LAST:event_jtNameFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -287,6 +313,7 @@ public class ViewCustomerForm extends javax.swing.JFrame {
     private javax.swing.JButton jbLast;
     private javax.swing.JButton jbNext;
     private javax.swing.JButton jbPrevious;
+    private javax.swing.JButton jbSave;
     private javax.swing.JLabel jbTitle;
     private javax.swing.JTextField jtAddress;
     private javax.swing.JTextField jtCity;
