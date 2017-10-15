@@ -140,5 +140,8 @@ public class Customer extends CustomerDao {
         this.creditLimit = creditLimit;
     }
     
+    public boolean update(){
+        return update(this);
+    }
     
 }
