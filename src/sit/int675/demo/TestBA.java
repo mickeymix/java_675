@@ -6,12 +6,13 @@
 package sit.int675.demo;
 
 import sit.int675.demo.model.BankAccount ;
+import sit.int675.demo.model.BankAccountException;
 /**
  *
  * @author INT675
  */
 public class TestBA {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BankAccountException {
         BankAccount baSomchai, baSomsri ;
          baSomchai = new BankAccount();
          baSomsri = new BankAccount();
