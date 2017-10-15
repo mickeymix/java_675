@@ -23,7 +23,7 @@ public class CustomerDao {
     private static String FIND_BY_NAME = "select * from customer where lower(name) like ?";
     private static String FIND_BY_ID = "select * from customer where customer_id = ?";
     private static String NEW_CUSTOMER = "";
-    private static String UPDATE_CUSTOMER = "";
+    private static String UPDATE_CUSTOMER = "update customer set name=?, email= ? where customer_id = ?";
     private static String DELETE_CUSTOMER = "";
 
     public static List<Customer> findByName(String key) {
@@ -47,5 +47,22 @@ public class CustomerDao {
             System.err.println(ex);
         }
         return customers;
+    }
+    
+    protected static boolean update(Customer c){
+         Connection conn = ConnectionBuilder.getConnection();
+        PreparedStatement pstm;
+         try {
+            pstm = conn.prepareStatement(UPDATE_CUSTOMER);
+            pstm.setString(1, c.getName());
+            pstm.setString(2, c.getEmail());
+            pstm.setInt(3, c.getCustomerId());
+            pstm.executeUpdate();
+            return true;
+         }catch (SQLException e){
+             e.printStackTrace();
+         }
+        
+        return false;
     }
 }
