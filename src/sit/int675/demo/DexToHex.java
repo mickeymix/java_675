@@ -11,7 +11,7 @@ package sit.int675.demo;
  */
 public class DexToHex {
 
-    private static final String digits = "0123456789ABCDEF";
+    private static final String digitsHEXConStants = "0123456789ABCDEF";
 
     public static void main(String[] args) {
         for (int i = 0; i < 255; i++) {
@@ -30,10 +30,10 @@ public class DexToHex {
         String hex = "";
         while (d > 0) {
             int digit = d % base;
-            hex = digits.charAt(digit) + hex;
+            hex = digitsHEXConStants.charAt(digit) + hex;
             d = d / base;
         }
-        return hex;
+        return hex.toLowerCase();
     }
 
 }
